@@ -3,7 +3,7 @@ All nodes use the same docker image. You can start a MySQL Replication Cluster w
 
 MySQL port is set to 3307 as MaxScale will use 3306.  ( https://github.com/alanpeng/maxscale1.4.5-1-docker )
 
-```
+```shell
 docker run -itd --name=MySQL-Cluster-Master 
 	--hostname=Master \
 	-e MySQL_Role=Master \
