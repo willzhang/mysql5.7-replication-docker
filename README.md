@@ -3,6 +3,8 @@ All nodes use the same docker image. You can start a MySQL Replication Cluster w
 
 MySQL port is set to 3307 as MaxScale will use 3306.  ( https://github.com/alanpeng/maxscale1.4.5-1-docker )
 
+# Master
+
 ```shell
 docker run -itd --name=MySQL-Cluster-Master 
 	--hostname=Master \
@@ -18,6 +20,7 @@ docker run -itd --name=MySQL-Cluster-Master
 	-v /var/lib/mysql:/var/lib/mysql \
 	alanpeng/mysql5.7-replication-docker
 ```
+# Slave1
 
 ```
 docker run -itd --name=MySQL-Cluster-Slave1 
@@ -34,7 +37,7 @@ docker run -itd --name=MySQL-Cluster-Slave1
 	-v /var/lib/mysql:/var/lib/mysql \
 	alanpeng/mysql5.7-replication-docker
 ```
-
+# Slave2
 ```
 docker run -itd --name=MySQL-Cluster-Slave2 
 	--hostname=Slave2 \
@@ -50,6 +53,7 @@ docker run -itd --name=MySQL-Cluster-Slave2
 	-v /var/lib/mysql:/var/lib/mysql \
 	alanpeng/mysql5.7-replication-docker
 ```
+
 
 ```
 MasterNode:
