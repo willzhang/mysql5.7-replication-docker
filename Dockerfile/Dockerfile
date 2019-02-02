@@ -1,4 +1,4 @@
-FROM  mysql:5.7
+FROM  mysql:5.7.25
 MAINTAINER Alan Peng <alan_peng@wise2.com>
 COPY sql-init.sh /docker-entrypoint-initdb.d/
 COPY update-config.sh /usr/local/bin/update-config.sh
