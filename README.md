@@ -6,7 +6,7 @@ MySQL port is set to 3307 as MaxScale will use 3306.  ( https://github.com/alanp
 # Master
 
 ```shell
-docker run -itd --name=MySQL-Cluster-Master 
+docker run -itd --name=MySQL-Cluster-Master \
 	--hostname=Master \
 	-e MySQL_Role=Master \
 	-e MYSQL_ROOT_PASSWORD=password \
@@ -23,7 +23,7 @@ docker run -itd --name=MySQL-Cluster-Master
 # Slave1
 
 ```
-docker run -itd --name=MySQL-Cluster-Slave1 
+docker run -itd --name=MySQL-Cluster-Slave1 \
 	--hostname=Slave1 \
 	-e MySQL_Role=Slave1 \
 	-e MYSQL_ROOT_PASSWORD=password \
@@ -39,7 +39,7 @@ docker run -itd --name=MySQL-Cluster-Slave1
 ```
 # Slave2
 ```
-docker run -itd --name=MySQL-Cluster-Slave2 
+docker run -itd --name=MySQL-Cluster-Slave2 \
 	--hostname=Slave2 \
 	-e MySQL_Role=Slave2 \
 	-e MYSQL_ROOT_PASSWORD=password \
