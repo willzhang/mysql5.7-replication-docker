@@ -1,0 +1,63 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-master
+  labels:
+    app: mysql-master
+  namespace: default
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector: 
+    app: mysql-master
+
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-slave1
+  labels:
+    app: mysql-slave1
+  namespace: default
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector: 
+    app: mysql-slave1  
+    
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql-slave2
+  labels:
+    app: mysql-slave2
+  namespace: default
+spec:
+  ports:
+  - port: 3306
+    targetPort: 3306
+  selector: 
+    app: mysql-slave2
+    
+---
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: maxscale
+  labels:
+    app: maxscale
+  namespace: default
+spec:
+  type: NodePort
+  ports:
+  - port: 3306
+    targetPort: 3306
+    nodePort: 30000
+  selector: 
+    app: maxscale    

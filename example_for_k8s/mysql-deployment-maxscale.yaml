@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maxscale
+  labels:
+    name: maxscale
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: maxscale
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: maxscale
+    spec:
+      containers:
+      - name: maxscale
+        image: alanpeng/maxscale1.4.5-1-docker
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"    
+        - name: REPLICATION_USER
+          value: "repluser"          
+        - name: REPLICATION_PASSWORD
+          value: "88888888"         
+        - name: MasterIP
+          value: "mysql-master"         
+        - name: Slave1IP
+          value: "mysql-slave1"         
+        - name: Slave2IP
+          value: "mysql-slave2"            
+        - name: MySQLPort
+          value: "3306"
+        volumeMounts:
+          - name: mysql-maxscale
+            mountPath: /root/failover
+      volumes:
+        - name: mysql-maxscale
+          persistentVolumeClaim:
+            claimName: mysql-maxscale-pvc

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mysql-slave2
+  labels:
+    name: mysql-slave2
+  namespace: default
+spec:
+spec:
+  selector:
+    matchLabels:
+      app: mysql-slave2
+  serviceName: mysql-slave2
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-slave2
+    spec:
+      containers:
+      - name: mysql-slave2
+        image: alanpeng/mysql5.7-replication-docker
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MySQL_Role
+          value: "Slave2"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"    
+        - name: REPLICATION_USER
+          value: "repluser"          
+        - name: REPLICATION_PASSWORD
+          value: "88888888"         
+        - name: MasterIP
+          value: "mysql-master"         
+        - name: Slave1IP
+          value: "mysql-slave1"         
+        - name: Slave2IP
+          value: "mysql-slave2"            
+        - name: MySQLPort
+          value: "3306"          
+        volumeMounts:
+          - name: mysql-slave2-v
+            mountPath: /var/lib/mysql
+      nodeSelector:
+        nodetype: mysql-slave2
+      volumes:
+        - name: mysql-slave2-v
+          persistentVolumeClaim:
+            claimName: mysql-slave2-pvc

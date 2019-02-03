@@ -1,0 +1,49 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  name: mysql-master
+  labels:
+    name: mysql-master
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: mysql-master
+  serviceName: mysql-master
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mysql-master
+    spec:
+      containers:
+      - name: mysql-master
+        image: alanpeng/mysql5.7-replication-docker
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MySQL_Role
+          value: "Master"
+        - name: MYSQL_ROOT_PASSWORD
+          value: "password"    
+        - name: REPLICATION_USER
+          value: "repluser"          
+        - name: REPLICATION_PASSWORD
+          value: "88888888"         
+        - name: MasterIP
+          value: "mysql-master"         
+        - name: Slave1IP
+          value: "mysql-slave1"         
+        - name: Slave2IP
+          value: "mysql-slave2"            
+        - name: MySQLPort
+          value: "3306"          
+        volumeMounts:
+          - name: mysql-master-v
+            mountPath: /var/lib/mysql
+      nodeSelector:
+        nodetype: mysql-master
+      volumes:
+        - name: mysql-master-v
+          persistentVolumeClaim:
+            claimName: mysql-master-pvc
